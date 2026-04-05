@@ -60,14 +60,14 @@ public class Post implements Serializable {
         "\n-----------------------------------------------\n";
         return result;
     }
-    public void saveText() throws IOException {
-        String filename = "mypost";
+    public void saveAsTextFile(String filename) throws IOException {
+//        String filename = "mypost";
         try {
             BufferedWriter out = new BufferedWriter(new FileWriter(filename));
             out.write(this.toFormattedString());
             out.close();
         } catch (IOException ex) {
-            System.out.println(ex.getMessage());
+//            System.out.println(ex.getMessage());
         }
         
     }

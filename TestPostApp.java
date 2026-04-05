@@ -6,7 +6,7 @@ public class TestPostApp {
         System.out.println(a1.toString());
         try {
             // code to save the post
-            a1.saveText();
+            a1.saveAsTextFile("mypost.txt");
         } catch( IOException ex ) {
             System.out.println("File not saved.");
             ex.printStackTrace();

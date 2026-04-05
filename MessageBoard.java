@@ -3,7 +3,7 @@ import java.time.LocalDate;
 import java.util.*;
 
 
-public class MessageBoard implements Serializable {
+public class MessageBoard implements MessageBoardInterface {
     private List<Post> posts;
     private String boardName;
 
@@ -84,5 +84,27 @@ public class MessageBoard implements Serializable {
         }
         return result;
     }
-
+    public void saveMessageBoard(String filename) throws IOException{
+        ObjectOutputStream out = new ObjectOutputStream(new FileOutputStream(filename));
+        // store boardName attribute
+        out.writeObject(boardName);
+        // convert posts to array Post[] to simplifies the deserialisation
+        Post[] postArray = posts.toArray(new Post[posts.size()]);
+        //  store Post array
+        out.writeObject(postArray);
+    } 
+    public void loadMessageBoard(String filename) throws IOException, ClassNotFoundException{
+        ObjectInputStream in = new ObjectInputStream(new FileInputStream(filename));
+        String loadedName = (String)in.readObject();
+        boardName = loadedName;
+        Post[] loadedPosts = (Post[])in.readObject();
+        posts = new ArrayList<Post>();
+        for (Post post : loadedPosts) {
+            posts.add(post);
+        }
+    }
+    public void savePostAsTextFile(int PostID, String filename) throws IOException {
+        Post post = posts.get(this.getPostIndex(PostID));
+        post.saveAsTextFile(filename);
+    }
 }

@@ -1,5 +1,8 @@
+
+import java.io.IOException;
+
 public class TestMBApp {
-    public static void main() {
+    public static void main(String args[]) {
         MessageBoard mb = new MessageBoard("Coding Support");
         mb.addPost("Alex Adam", "Help with Java", 
         "Hi, could anyone help me I need to learn how to code in java!"
@@ -36,6 +39,12 @@ public class TestMBApp {
         for (int i=0; i<dat.length; i++) {
             mb.getFormattedPost(dat[i]);
         }
-        
+        try {
+            mb.saveMessageBoard("codingsupport.ser");
+        } catch (IOException e) {
+            System.out.println("Board was not saved");
+            e.printStackTrace();
+        }
+
     }
 }
